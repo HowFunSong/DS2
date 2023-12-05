@@ -17,18 +17,3 @@ delete 100 1001
 delete 6 1006
 delete 7 1007
 decrease 4 1004 1000
-extract
-extract
-extract
-extract
-extract
-extract
-extracextrt
-insert 1 7
-insert 1 9
-insert 1 13
-delete 1 13
-delete 1 7
-extract
-extract
-quit

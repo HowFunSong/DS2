@@ -1,0 +1,114 @@
+{
+  "tests": [
+    {
+      "name": "prepare test case",
+      "setup": "",
+      "run": "/bin/rm -rf ${PWD}/test && /bin/curl -o ${PWD}/test.tar.gz https://raw.githubusercontent.com/2023-DS/hw_test/main/hw2_test.tar.gz",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "prepare test script",
+      "setup": "",
+      "run": "/bin/curl -o ${PWD}/test.sh https://raw.githubusercontent.com/2023-DS/hw_test/main/test.sh && /bin/chmod a+x ${PWD}/test.sh ",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "build",
+      "setup": "",
+      "run": "make clean && make -k",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "case1_1",
+      "setup": "",
+      "run": "${PWD}/test.sh hw2 p1 01",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 16
+    },
+    {
+      "name": "case2_1",
+      "setup": "",
+      "run": "${PWD}/test.sh hw2 p2 01",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 12
+    },
+    {
+      "name": "case2_2",
+      "setup": "",
+      "run": "${PWD}/test.sh hw2 p2 02",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 12
+    },
+    {
+      "name": "case2_3",
+      "setup": "",
+      "run": "${PWD}/test.sh hw2 p2 03",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 12
+    },
+    {
+      "name": "case2_4",
+      "setup": "",
+      "run": "${PWD}/test.sh hw2 p2 04",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 12
+    },
+    {
+      "name": "case2_5",
+      "setup": "",
+      "run": "${PWD}/test.sh hw2 p2 05",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 12
+    },
+    {
+      "name": "case2_6",
+      "setup": "",
+      "run": "${PWD}/test.sh hw2 p2 06",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 12
+    },
+    {
+      "name": "case2_7",
+      "setup": "",
+      "run": "${PWD}/test.sh hw2 p2 07",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 12
+    }
+  ]
+}

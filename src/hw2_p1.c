@@ -243,7 +243,7 @@ void fib_heap_link(FIB_HEAP *H, NODE *y, NODE *x) {
 // Extract min
 NODE *extract_min(FIB_HEAP *H) {
   if (H->min == NULL){
-    printf("\n --The heap is empty--\n");
+    // printf("\n --The heap is empty--\n");
     return NULL;
   }else {
     NODE *temp = H->min;
@@ -273,10 +273,10 @@ NODE *extract_min(FIB_HEAP *H) {
       H->min = NULL;
     else {
       H->min = temp->right_sibling;
-      printf("call consolidate\n");
+      // printf("call consolidate\n");
       consolidate(H);
     }
-    printf("finish consolidate\n");
+    // printf("finish consolidate\n");
     H->n = H->n - 1;
     return temp;
   }
@@ -310,27 +310,23 @@ void cut(FIB_HEAP *H, NODE *node_to_be_decrease, NODE *parent_node) {
 
 void cascading_cut(FIB_HEAP *H, NODE *current_node) {
   NODE *parent;
-  // if (parent_node == H->min){
-  //   printf("now is root\n");
-  //   printf("%d", H->min->mark);
-  //   return;
-  // }
+
   if (current_node == H->min){
     (current_node->degree) --;
-    printf("%d %d",current_node->key, H->min->key);
+    // printf("%d %d",current_node->key, H->min->key);
     return;
   }
   parent = current_node->parent;
-  printf(" CurrentNode  : %d, ParentNode: %d, heap-min : %d\n", current_node->key ,parent->key ,H->min->key);
+  // printf(" CurrentNode  : %d, ParentNode: %d, heap-min : %d\n", current_node->key ,parent->key ,H->min->key);
   if (parent != NULL) {
     if (current_node->mark == false) {
       current_node->mark = true;
     } else {
-      printf("\n cut called");
+      // printf("\n cut called");
       cut(H, current_node, parent);
-      printf("\n cascading cut called\n");
-      printf("\n now (%d), after cut at (%d) left side \n", current_node->key, current_node->right_sibling->key);
-      printf("\n Process parent (%d)\n", parent->key);
+      // printf("\n cascading cut called\n");
+      // printf("\n now (%d), after cut at (%d) left side \n", current_node->key, current_node->right_sibling->key);
+      // printf("\n Process parent (%d)\n", parent->key);
       cascading_cut(H, parent);
     }
   }
@@ -356,19 +352,19 @@ void decrease_key(FIB_HEAP *H, NODE *node_to_be_decrease, int new_key) {
         return;
       }
       if ((parent_node != NULL) && (node_to_be_decrease->key < parent_node->key)) {
-        printf("\n cut called");
+        // printf("\n cut called");
         cut(H, node_to_be_decrease, parent_node);
-        printf("\n cascading cut called\n");
-        printf("\n now (%d), after cut at (%d) left side \n", node_to_be_decrease->key, node_to_be_decrease->right_sibling->key);
-        printf("\n Process parent %d\n", parent_node->key);
+        // printf("\n cascading cut called\n");
+        // printf("\n now (%d), after cut at (%d) left side \n", node_to_be_decrease->key, node_to_be_decrease->right_sibling->key);
+        // printf("\n Process parent %d\n", parent_node->key);
         cascading_cut(H, parent_node);
       }
 
-      printf("\n Finish Decrease Fix-up \n");
+      // printf("\n Finish Decrease Fix-up \n");
       if (node_to_be_decrease->key < H->min->key) {
         H->min = node_to_be_decrease;
       }
-      printf("\nH->min : %d\n", H->min->key);
+      // printf("\nH->min : %d\n", H->min->key);
       
     }
   }
@@ -452,10 +448,10 @@ void Delete_Node(FIB_HEAP *H, int dec_key, int val) {
 
   heap = extract_min(H);
   if (heap != NULL){
-    printf("\n --Node deleted--\n");
+    // printf("\n --Node deleted--\n");
     return ;
   }else{
-    printf("\n Node not deleted:some error");
+    // printf("\n Node not deleted:some error");
     return;
   }
 }
@@ -487,18 +483,18 @@ int main(int argc, char **argv) {
                 // printf("decrease called\n");
                 decrease_key(heap, node_to_be_decrease, new_key);
                 // printf("extracted_min called\n");
-                printf("decrease (%d)%d success\n", del_key, val);
-                print_heap(heap,heap->min);
+                // printf("decrease (%d)%d success\n", del_key, val);
+                // print_heap(heap,heap->min);
                 extracted_min = extract_min(heap);
                 if (extracted_min == NULL){continue;}
-                printf("delete (%d)%d success\n", del_key, val);
+                // printf("delete (%d)%d success\n", del_key, val);
 
             } else if (strcmp(operation, "decrease") == 0) {
 
                 scanf("%d %d %d", &dec_key, &val, &decreaseVal);
                 node_to_be_decrease = findNode(heap, heap->min, dec_key, val);
                 if (node_to_be_decrease==NULL){ continue;} 
-                printf("find node %d\n", node_to_be_decrease->key);
+                // printf("find node %d\n", node_to_be_decrease->key);
                 new_key = dec_key - decreaseVal;
                 decrease_key(heap, node_to_be_decrease, new_key);
 

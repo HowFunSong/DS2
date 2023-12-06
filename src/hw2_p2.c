@@ -126,7 +126,7 @@ void deletion(int data) {
     printf("Tree is not available.\n");
     return;
   }
-
+  
   // Start from the root and search for the node to be deleted()
   currentNode = root;
   while (currentNode != NULL) {
@@ -142,6 +142,20 @@ void deletion(int data) {
   if (currentNode == NULL) {
     return;
   }
+  if (currentNode->data == 97539){
+    printf("delete %d | ",currentNode->data);
+    printf("left chid : %d | ",currentNode->link[0]->data );
+    printf("right chid : %d | ",currentNode->link[1]->data );
+    if (currentNode->color == RED){
+      printf("color : RED |\n");
+    }else{
+      printf("color : BLACK |\n");
+    }
+    // return;
+  }
+
+
+
 
   // Adjust the tree structure based on the node's children
   if (currentNode->link[1] == NULL) {
@@ -159,9 +173,25 @@ void deletion(int data) {
       nodeStack[height - 1]->link[directionStack[height - 1]] = currentNode->link[0];
     }
   } else {
+    //右子樹非空
     // Node to be deleted has a right child
     replacementNode = currentNode->link[1];
+    if (currentNode->data == 97539){
+        printf("replace : %d | ",replacementNode->data );
+        if(replacementNode->link[0]== NULL ){printf("left child : NULL | ");}
+        if(replacementNode->link[1]== NULL ){printf("right child : NULL | ");}
+
+        // printf("left child : %d | ",replacementNode->link[0]->data );
+        // printf("right child : %d | ",replacementNode->link[1]->data );
+        if (replacementNode->color == RED){
+          printf("color : RED |\n");
+        }else if(currentNode ->color ==BLACK){
+          printf("color : BLACK |\n");
+        }
+        return;
+      }
     if (replacementNode->link[0] == NULL) {
+      //右子樹左邊沒有節點, 右root --> 替代品 
       // Case where the right child of the node to be deleted has no left child
       replacementNode->link[0] = currentNode->link[0];
       nodeColor = replacementNode->color;
@@ -177,6 +207,17 @@ void deletion(int data) {
       directionStack[height] = 1;
       nodeStack[height++] = replacementNode;
     } else {
+      if (currentNode->data == 97539){
+        printf("delete %d | ",currentNode->data);
+        printf("left chid : %d | ",currentNode->link[0]->data );
+        printf("right chid : %d | ",currentNode->link[1]->data );
+        if (currentNode->color == RED){
+          printf("color : RED |\n");
+        }else{
+          printf("color : BLACK |\n");
+        }
+        return;
+      }
       // Node to be deleted has a right child with a left child
       index = height++;
       while (1) {
@@ -202,6 +243,17 @@ void deletion(int data) {
       if (currentNode == root) {
         root = tempNode;
       }
+      if (currentNode->data == 97539){
+        printf("delete %d | ",currentNode->data);
+        printf("left chid : %d | ",currentNode->link[0]->data );
+        printf("right chid : %d | ",currentNode->link[1]->data );
+        if (currentNode->color == RED){
+          printf("color : RED |\n");
+        }else{
+          printf("color : BLACK |\n");
+        }
+        return;
+      }
 
       nodeColor = tempNode->color;
       tempNode->color = currentNode->color;
@@ -213,7 +265,7 @@ void deletion(int data) {
   if (height < 1){
     return;
   }
-  //代表replace是黑節點 需要調整 平衡
+  //代表replace是黑節點 ->需要調整平衡
   if (currentNode->color == BLACK) {
     // Rebalance the tree to maintain red-black properties after deletion
     while (1) {
@@ -221,20 +273,27 @@ void deletion(int data) {
       if (parentPtr && parentPtr->color == RED) {
         // Replacement node's parent is red, so no violation
         parentPtr->color = BLACK;
+        if (currentNode->data == 97539){printf("parent is red, red -> black, done");}
         break;
       }
 
-      if (height < 2)
+      if (height < 2){
+        if (currentNode->data == 97539){printf("tree is less than 2, done");}
         break;
+      }
 
       if (directionStack[height - 2] == 0) {
+/*           p
+           /  \
+          x    s
+*/
         siblingPtr = nodeStack[height - 1]->link[1];
 
         if (!siblingPtr)
           break;
 
         if (siblingPtr->color == RED) {
-          // Sibling is red, perform rotations and recoloring
+          // Sibling is red, perform left rotations and recoloring
           nodeStack[height - 1]->color = RED;
           siblingPtr->color = BLACK;
           nodeStack[height - 1]->link[1] = siblingPtr->link[0];
@@ -245,13 +304,16 @@ void deletion(int data) {
           } else {
             nodeStack[height - 2]->link[directionStack[height - 2]] = siblingPtr;
           }
+
           directionStack[height] = 0;
           nodeStack[height] = nodeStack[height - 1];
           nodeStack[height - 1] = siblingPtr;
           height++;
 
           siblingPtr = nodeStack[height - 1]->link[1];
+          
         }
+        if (!siblingPtr){break;}
 
         // Balance black nodes
         if ((!siblingPtr->link[0] || siblingPtr->link[0]->color == BLACK) &&
@@ -302,6 +364,7 @@ void deletion(int data) {
 
           siblingPtr = nodeStack[height - 1]->link[0];
         }
+
         if ((!siblingPtr->link[0] || siblingPtr->link[0]->color == BLACK) &&
           (!siblingPtr->link[1] || siblingPtr->link[1]->color == BLACK)) {
           siblingPtr->color = RED;
@@ -314,16 +377,21 @@ void deletion(int data) {
             nephewPtr->link[0] = siblingPtr;
             siblingPtr = nodeStack[height - 1]->link[0] = nephewPtr;
           }
+
+          if (!siblingPtr){break;}
+
           siblingPtr->color = nodeStack[height - 1]->color;
           nodeStack[height - 1]->color = BLACK;
           siblingPtr->link[0]->color = BLACK;
           nodeStack[height - 1]->link[0] = siblingPtr->link[1];
           siblingPtr->link[1] = nodeStack[height - 1];
+
           if (nodeStack[height - 1] == root) {
             root = siblingPtr;
           } else {
             nodeStack[height - 2]->link[directionStack[height - 2]] = siblingPtr;
           }
+
           break;
         }
       }
